@@ -36,7 +36,7 @@ export default function CustomButton({
   }
 
   return (
-    <button onClick={onClick} className={combinedClasses}>
+    <button onClick={onClick} className={combinedClasses + " cursor-pointer"}>
       {children}
     </button>
   );
