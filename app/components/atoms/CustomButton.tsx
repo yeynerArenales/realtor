@@ -7,6 +7,8 @@ interface CustomButtonProps {
   onClick?: () => void;
   variant?: "primary" | "secondary";
   className?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export default function CustomButton({
@@ -15,6 +17,8 @@ export default function CustomButton({
   onClick,
   variant = "primary",
   className = "",
+  type = "button",
+  disabled = false,
 }: CustomButtonProps) {
   const baseClasses =
     "inline-block px-6 py-3 rounded-md font-medium transition-colors text-sm sm:text-base";
@@ -26,7 +30,12 @@ export default function CustomButton({
       "border-2 border-stone-700 text-stone-700 hover:bg-stone-700 hover:text-stone-50",
   };
 
-  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;
+  const disabledClasses = disabled
+    ? "opacity-50 cursor-not-allowed"
+    : "cursor-pointer";
+
+  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className} ${disabledClasses}`;
+
   if (href) {
     return (
       <Link href={href} className={combinedClasses}>
@@ -36,7 +45,12 @@ export default function CustomButton({
   }
 
   return (
-    <button onClick={onClick} className={combinedClasses}>
+    <button
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+      className={combinedClasses}
+    >
       {children}
     </button>
   );
