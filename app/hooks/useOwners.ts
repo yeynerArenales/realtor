@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Owner } from "../components/molecules/OwnerCard";
-import { getOwners } from "../services/owners.service";
+import { getOwners, createOwner } from "../services/owners.service";
 
 export const useOwners = () => {
   const [owners, setOwners] = useState<Owner[]>([]);
@@ -22,10 +22,28 @@ export const useOwners = () => {
     }
   }, []);
 
+  const handleCreateOwner = useCallback(
+    async (ownerData: Omit<Owner, "id" | "photo">) => {
+      try {
+        await createOwner(ownerData);
+        await fetchOwners();
+      } catch (err) {
+        throw err;
+      }
+    },
+    [fetchOwners]
+  );
+
   useEffect(() => {
     fetchOwners();
   }, [fetchOwners]);
 
-  return { owners, isLoading, error, refetch: fetchOwners };
+  return {
+    owners,
+    isLoading,
+    error,
+    refetch: fetchOwners,
+    createOwner: handleCreateOwner,
+  };
 };
 

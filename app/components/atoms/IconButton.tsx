@@ -5,6 +5,7 @@ interface IconButtonProps {
   onClick?: () => void;
   ariaLabel?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export default function IconButton({
@@ -12,11 +13,17 @@ export default function IconButton({
   onClick,
   ariaLabel,
   className = "",
+  disabled = false,
 }: IconButtonProps) {
+  const disabledClasses = disabled
+    ? "opacity-50 cursor-not-allowed"
+    : "cursor-pointer";
+
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-stone-500 cursor-pointer ${className}`}
+      disabled={disabled}
+      className={`inline-flex items-center justify-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-stone-500 ${disabledClasses} ${className}`}
       aria-label={ariaLabel}
     >
       {children}
