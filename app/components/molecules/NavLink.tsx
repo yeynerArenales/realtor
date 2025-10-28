@@ -1,8 +1,9 @@
+import { ReactNode } from "react";
 import Link from "next/link";
 
 interface NavLinkProps {
   href: string;
-  children: React.ReactNode;
+  children: ReactNode;
   onClick?: () => void;
   variant?: "desktop" | "mobile";
   withBorder?: boolean;

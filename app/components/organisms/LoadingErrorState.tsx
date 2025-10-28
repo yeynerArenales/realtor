@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import Spinner from "../atoms/Spinner";
 import ErrorMessage from "../molecules/ErrorMessage";
 
@@ -5,7 +6,7 @@ interface LoadingErrorStateProps {
   isLoading: boolean;
   error: boolean;
   onRetry?: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function LoadingErrorState({
