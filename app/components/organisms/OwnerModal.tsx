@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Owner } from "../molecules/OwnerCard";
+import { Owner } from "../../types";
 import ImageFallback from "../atoms/ImageFallback";
 import { CustomButton, IconButton } from "../atoms";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Owner } from "../components/molecules/OwnerCard";
+import { Owner } from "../types";
 import { getOwners, createOwner } from "../services/owners.service";
 
 export const useOwners = () => {

@@ -8,7 +8,7 @@ import {
   Input,
   Textarea,
 } from "../atoms";
-import { Owner } from "../molecules/OwnerCard";
+import { Owner } from "../../types";
 
 interface CreateOwnerModalProps {
   isOpen: boolean;
