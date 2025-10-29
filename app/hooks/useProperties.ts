@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Property } from "../types";
 import { getProperties, createProperty } from "../services/properties.service";
 import { CreatePropertyData, PropertyFilters } from "../services/types";
@@ -11,8 +11,12 @@ export const useProperties = () => {
   const [error, setError] = useState<boolean>(false);
   const [filters, setFilters] = useState<PropertyFilters>({});
 
+  const abortRef = useRef<AbortController | null>(null);
+
   const fetchProperties = useCallback(async () => {
     try {
+      abortRef.current?.abort();
+      abortRef.current = new AbortController();
       setIsLoading(true);
       setError(false);
       const data = await getProperties(filters);
@@ -37,7 +41,10 @@ export const useProperties = () => {
   );
 
   useEffect(() => {
-    fetchProperties();
+    const handle = setTimeout(() => {
+      fetchProperties();
+    }, 300);
+    return () => clearTimeout(handle);
   }, [fetchProperties]);
 
   return {
