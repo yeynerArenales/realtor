@@ -8,14 +8,10 @@ export interface Owner {
 
 export interface Property {
   id: string;
+  ownerId: string;
   name: string;
   address: string;
-  photos: string[];
-  ownerId: string;
   price: number;
-  bedrooms: number;
-  bathrooms: number;
-  area: number;
-  description: string;
+  image: string;
 }
 
