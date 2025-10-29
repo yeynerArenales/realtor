@@ -1,14 +1,7 @@
 "use client";
 
+import { Owner } from "../../types";
 import ImageFallback from "../atoms/ImageFallback";
-
-export interface Owner {
-  id: string;
-  name: string;
-  address: string;
-  photo: string;
-  birthday: string;
-}
 
 interface OwnerCardProps {
   owner: Owner;

@@ -7,7 +7,7 @@ import {
   LoadingErrorState,
   OwnerGrid,
 } from "../components/organisms";
-import { type Owner } from "../components/molecules/OwnerCard";
+import { type Owner } from "../types";
 import { useOwners } from "../hooks/useOwners";
 
 export default function OwnersPage() {

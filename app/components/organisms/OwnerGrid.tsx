@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { OwnerCard, type Owner } from "../molecules";
+import { OwnerCard } from "../molecules";
+import { type Owner } from "../../types";
 import OwnerModal from "./OwnerModal";
 
 interface OwnerGridProps {

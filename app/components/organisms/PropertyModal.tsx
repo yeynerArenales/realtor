@@ -1,21 +1,21 @@
 "use client";
 
 import { useEffect } from "react";
-import { Owner } from "../../types";
+import { Property } from "../../types";
 import ImageFallback from "../atoms/ImageFallback";
 import { CustomButton, IconButton } from "../atoms";
 
-interface OwnerModalProps {
-  owner: Owner | null;
+interface PropertyModalProps {
+  property: Property | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function OwnerModal({
-  owner,
+export default function PropertyModal({
+  property,
   isOpen,
   onClose,
-}: OwnerModalProps) {
+}: PropertyModalProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -34,15 +34,15 @@ export default function OwnerModal({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || !owner) return null;
+  if (!isOpen || !property) return null;
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+  const formatPrice = (price: number): string => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
   };
 
   return (
@@ -56,7 +56,11 @@ export default function OwnerModal({
       >
         <div className="relative">
           <div className="relative h-48 sm:h-64 w-full">
-            <ImageFallback src={owner.photo} alt={owner.name} />
+            <ImageFallback 
+              src={property.image} 
+              alt={property.name || property.address} 
+              type="image"
+            />
           </div>
           <IconButton
             onClick={onClose}
@@ -78,9 +82,14 @@ export default function OwnerModal({
         </div>
 
         <div className="p-4 sm:p-6">
-          <h2 className="text-xl sm:text-2xl font-bold text-stone-900 mb-4 sm:mb-6">
-            {owner.name}
-          </h2>
+          <div className="flex items-start justify-between mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-stone-900">
+              {property.name}
+            </h2>
+            <p className="text-lg sm:text-xl font-semibold text-stone-700 ml-4">
+              {formatPrice(property.price)}
+            </p>
+          </div>
 
           <div className="space-y-3 sm:space-y-4">
             <div>
@@ -107,29 +116,7 @@ export default function OwnerModal({
                 Address
               </h3>
               <p className="text-sm sm:text-base text-stone-600 ml-6 sm:ml-7">
-                {owner.address}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xs sm:text-sm font-semibold text-stone-700 mb-1 flex items-center gap-2">
-                <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                Birthday
-              </h3>
-              <p className="text-sm sm:text-base text-stone-600 ml-6 sm:ml-7">
-                {formatDate(owner.birthday)}
+                {property.address}
               </p>
             </div>
           </div>
@@ -144,3 +131,4 @@ export default function OwnerModal({
     </div>
   );
 }
+

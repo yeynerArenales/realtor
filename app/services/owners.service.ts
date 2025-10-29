@@ -1,4 +1,4 @@
-import { Owner } from "../components/molecules/OwnerCard";
+import { Owner } from "../types";
 import { ApiResponse } from "./types";
 
 export const getOwners = async (): Promise<Owner[]> => {
